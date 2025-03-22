@@ -1,0 +1,92 @@
+name: Publish to PyPI
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build wheel twine setuptools
+    
+    - name: Create setup.py if it doesn't exist
+      run: |
+        if [ ! -f setup.py ]; then
+          echo "Creating setup.py file..."
+          cat > setup.py << 'EOF'
+from setuptools import setup, find_packages
+
+setup(
+    name="mcp-google-contacts-server",
+    version="${{ github.ref_name }}",
+    description="MCP server for Google Contacts integration",
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    author="Rayan Zaki",
+    author_email="your.email@example.com",
+    url="https://github.com/rayanzaki/mcp-google-contacts-server",
+    packages=find_packages(),
+    install_requires=[
+        "fastmcp",
+        "google-api-python-client",
+        "google-auth",
+        "google-auth-oauthlib",
+    ],
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires=">=3.12",
+    entry_points={
+        "console_scripts": [
+            "mcp-google-contacts=main:main",
+        ],
+    },
+)
+EOF
+        fi
+    
+    - name: Fix src layout issues
+      run: |
+        if [ -d "src" ]; then
+          echo "Using src layout"
+        else
+          # Create pyproject.toml to handle the flat layout
+          cat > pyproject.toml << 'EOF'
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["mcp_google_contacts_server"]
+
+[tool.setuptools.package-data]
+mcp_google_contacts_server = ["*.py"]
+EOF
+          
+          # Create a package directory and copy Python files
+          mkdir -p mcp_google_contacts_server
+          cp *.py mcp_google_contacts_server/
+          # Create an __init__.py file
+          touch mcp_google_contacts_server/__init__.py
+        fi
+    
+    - name: Build package
+      run: python -m build
+    
+    - name: Publish package to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
+        skip_existing: true

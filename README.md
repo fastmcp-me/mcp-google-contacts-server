@@ -12,17 +12,6 @@ A Machine Conversation Protocol (MCP) server that provides Google Contacts funct
 
 ## 🚀 Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/rayanzaki/mcp-google-contacts-server.git
-   cd mcp-google-contacts-server
-   ```
-
-2. Install dependencies:
-   ```bash
-   pip install -e .
-   ```
-
 ### 📋 Prerequisites
 
 - Python 3.12 or higher

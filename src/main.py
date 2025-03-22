@@ -9,8 +9,8 @@ from typing import Dict, List, Optional
 from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 
-from tools import register_tools, init_service
-from config import config
+from src.tools import register_tools, init_service
+from src.config import config
 
 def parse_args():
     """Parse command line arguments."""
