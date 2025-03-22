@@ -22,37 +22,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install build wheel setuptools
       
-      - name: Update version from tag
+      - name: Set execute permissions for scripts
         run: |
-          # Extract version from tag
-          VERSION=${{ github.ref_name }}
-          # Replace version in setup.py
-          sed -i "s/version=\"[^\"]*\"/version=\"${VERSION}\"/g" setup.py
+          chmod +x scripts/update_version.sh
+          chmod +x scripts/fix_layout.sh
+      
+      - name: Update version from tag
+        run: ./scripts/update_version.sh ${{ github.ref_name }}
       
       - name: Fix src layout issues
-        run: |
-          if [ -d "src" ]; then
-            echo "Using src layout"
-          else
-            # Create pyproject.toml to handle the flat layout
-            cat > pyproject.toml << 'EOF'
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools]
-packages = ["mcp_google_contacts_server"]
-
-[tool.setuptools.package-data]
-mcp_google_contacts_server = ["*.py"]
-EOF
-            
-            # Create a package directory and copy Python files
-            mkdir -p mcp_google_contacts_server
-            cp *.py mcp_google_contacts_server/
-            # Create an __init__.py file
-            touch mcp_google_contacts_server/__init__.py
-          fi
+        run: ./scripts/fix_layout.sh
       
       - name: Build package
         run: python -m build
