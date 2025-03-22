@@ -6,6 +6,7 @@ import sys
 import os
 import argparse
 from typing import Dict, List, Optional
+from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 
 from tools import register_tools, init_service
@@ -65,6 +66,16 @@ def main():
         os.environ["GOOGLE_CLIENT_SECRET"] = args.client_secret
     if args.refresh_token:
         os.environ["GOOGLE_REFRESH_TOKEN"] = args.refresh_token
+    
+    # Handle credentials file argument
+    if args.credentials_file:
+        credentials_path = Path(args.credentials_file)
+        if credentials_path.exists():
+            # Add the specified credentials file to the beginning of the search paths
+            config.credentials_paths.insert(0, credentials_path)
+            print(f"Using credentials file: {credentials_path}")
+        else:
+            print(f"Warning: Specified credentials file {credentials_path} not found")
     
     # Initialize FastMCP server
     mcp = FastMCP("google-contacts")
