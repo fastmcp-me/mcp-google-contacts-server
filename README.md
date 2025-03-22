@@ -78,9 +78,9 @@ Set the following environment variables:
 ### 🏃‍♂️ Basic Startup
 
 ```bash
-python main.py
+python src/main.py
 # or
-uv run main.py
+uv run src/main.py
 ```
 
 This starts the server with the default stdio transport.
@@ -101,17 +101,17 @@ This starts the server with the default stdio transport.
 
 Start with HTTP transport:
 ```bash
-python main.py --transport http --port 8080
+python src/main.py --transport http --port 8080
 ```
 
 Use specific credentials file:
 ```bash
-python main.py --credentials-file /path/to/your/credentials.json
+python src/main.py --credentials-file /path/to/your/credentials.json
 ```
 
 Provide credentials directly:
 ```bash
-python main.py --client-id YOUR_CLIENT_ID --client-secret YOUR CLIENT_SECRET --refresh-token YOUR_REFRESH_TOKEN
+python src/main.py --client-id YOUR_CLIENT_ID --client-secret YOUR CLIENT_SECRET --refresh-token YOUR_REFRESH_TOKEN
 ```
 
 ## 🔌 Integration with MCP Clients
