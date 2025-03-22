@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "MCP server for Google Contacts integration"
 readme = "README.md"
 authors = [
-    {name = "Rayan Zaki", email = "your.email@example.com"}
+    {name = "Rayan Zaki", email = "rayan.hassici@ensia.edu.dz"}
 ]
 license = {file = "LICENSE"}
 classifiers = [
