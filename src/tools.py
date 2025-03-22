@@ -4,9 +4,9 @@ from typing import Dict, List, Optional, Any, Union
 from mcp.server.fastmcp import FastMCP
 import traceback
 
-from src.google_contacts_service import GoogleContactsService, GoogleContactsError
-from src.formatters import format_contact, format_contacts_list, format_directory_people
-from src.config import config
+from google_contacts_service import GoogleContactsService, GoogleContactsError
+from formatters import format_contact, format_contacts_list, format_directory_people
+from config import config
 
 # Global service instance
 contacts_service = None

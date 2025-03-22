@@ -9,7 +9,7 @@ from googleapiclient.discovery import build
 from google.auth.transport.requests import Request
 from googleapiclient.errors import HttpError
 
-from src.config import config
+from config import config
 
 class GoogleContactsError(Exception):
     """Exception raised for errors in the Google Contacts service."""
