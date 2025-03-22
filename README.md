@@ -35,6 +35,7 @@ A Machine Conversation Protocol (MCP) server that provides Google Contacts funct
 3. Create a virtual environment and install dependencies:
    ```bash
    uv venv
+   source .venv/bin/activate
    uv pip install -r requirements.txt
    ```
 
