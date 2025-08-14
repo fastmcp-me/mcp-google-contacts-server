@@ -64,6 +64,18 @@ Set the following environment variables:
 - `GOOGLE_CLIENT_SECRET`: Your Google OAuth client secret
 - `GOOGLE_REFRESH_TOKEN`: A valid refresh token for your account
 
+*Note: If your existing environment variables for Google OAuth client ID and client secret have different names (e.g., `GOOGLE_OAUTH_CLIENT_ID`), you can alias them in your `.env` file (e.g., `GOOGLE_CLIENT_ID=$GOOGLE_OAUTH_CLIENT_ID`) to ensure the server picks them up correctly.*
+
+### 🚀 Initial Authorization (Recommended)
+
+For the initial authorization flow to obtain your `GOOGLE_REFRESH_TOKEN`, it is recommended to run the `mcp-google-contacts` command directly in your terminal (outside of any MCP client that might obscure the interactive browser prompts).
+
+Example:
+```bash
+mcp-google-contacts
+```
+Follow the instructions in your terminal and browser to complete the authentication. Once the `GOOGLE_REFRESH_TOKEN` is displayed, you can set it as an environment variable for non-interactive use.
+
 ## 🛠️ Usage
 
 ### 🏃‍♂️ Basic Startup
