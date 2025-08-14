@@ -9,8 +9,8 @@ from typing import Dict, List, Optional
 from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 
-from tools import register_tools, init_service
-from config import config
+from mcp_google_contacts_server.tools import register_tools, init_service
+from mcp_google_contacts_server.config import config
 
 def parse_args():
     """Parse command line arguments."""
