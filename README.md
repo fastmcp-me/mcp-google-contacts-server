@@ -1,6 +1,6 @@
 # 📇 MCP Google Contacts Server
 
-A Machine Conversation Protocol (MCP) server that provides Google Contacts functionality, allowing AI assistants to manage contacts, search your organization's directory, and interact with Google Workspace.
+A Machine Conversation Protocol (MCP) server that provides Google Contacts functionality, allowing AI assistants to manage contacts, search your organization's directory, and interact with Google Workspace. Much updated from its original by Gemini AI in Gemini CLI. 
 
 ## ✨ Features
 
@@ -19,38 +19,29 @@ A Machine Conversation Protocol (MCP) server that provides Google Contacts funct
 - Google Cloud project with People API enabled
 - OAuth 2.0 credentials for Google API access
 
-### 🧪 Using uv (Recommended)
+### 📦 Installation from Source
 
-1. Install uv if you don't have it already:
-   ```bash
-   pip install uv
-   ```
+To install the `mcp-google-contacts-server` as a Python package:
 
-2. Clone the repository:
-   ```bash
-   git clone https://github.com/rayanzaki/mcp-google-contacts-server.git
-   cd mcp-google-contacts-server
-   ```
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/rayanzaki/mcp-google-contacts-server.git
+    cd mcp-google-contacts-server
+    ```
 
-3. Create a virtual environment and install dependencies:
-   ```bash
-   uv venv
-   source .venv/bin/activate
-   uv pip install -r requirements.txt
-   ```
+2.  **Rename the source directory:**
+    The package expects the source code to be in a directory named `mcp_google_contacts_server`.
+    ```bash
+    mv src mcp_google_contacts_server
+    ```
 
-### 📦 Using pip
+3.  **Install the package:**
+    This will install the package and its dependencies, making the `mcp-google-contacts` command available in your PATH.
+    ```bash
+    pip install .
+    ```
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/rayanzaki/mcp-google-contacts-server.git
-   cd mcp-google-contacts-server
-   ```
-
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+    *Note: If you encounter import errors after installation, ensure that relative imports within the source files (`main.py`, `tools.py`, `google_contacts_service.py`, `formatters.py`, `config.py`) are updated to use absolute imports (e.g., `from mcp_google_contacts_server.module_name import ...`). This is typically handled automatically by `pip install .` but can sometimes require manual adjustment if the package structure is unusual.*
 
 ## 🔑 Authentication Setup
 
@@ -72,6 +63,28 @@ Set the following environment variables:
 - `GOOGLE_CLIENT_ID`: Your Google OAuth client ID
 - `GOOGLE_CLIENT_SECRET`: Your Google OAuth client secret
 - `GOOGLE_REFRESH_TOKEN`: A valid refresh token for your account
+
+*Note: If your existing environment variables for Google OAuth client ID and client secret have different names (e.g., `GOOGLE_OAUTH_CLIENT_ID`), you can alias them in your `.env` file (e.g., `GOOGLE_CLIENT_ID=$GOOGLE_OAUTH_CLIENT_ID`) to ensure the server picks them up correctly.*
+Use e.g. `export GOOGLE_CLIENT_ID=$GOOGLE_OAUTH_CLIENT_ID && export GOOGLE_CLIENT_SECRET=$GOOGLE_OAUTH_CLIENT_SECRET` in command line before: `mcp-google-contacts` :
+
+```
+env | grep GOOGLE
+export GOOGLE_CLIENT_ID=$GOOGLE_OAUTH_CLIENT_ID && export GOOGLE_CLIENT_SECRET=$GOOGLE_OAUTH_CLIENT_SECRET
+env | grep GOOGLE
+mcp-google-contacts
+```
+{authentication evocation should happen here)
+
+
+### 🚀 Initial Authorization (Recommended)
+
+For the initial authorization flow to obtain your `GOOGLE_REFRESH_TOKEN`, it is recommended to run the `mcp-google-contacts` command directly in your terminal (outside of any MCP client that might obscure the interactive browser prompts).
+
+Example:
+```bash
+mcp-google-contacts
+```
+Follow the instructions in your terminal and browser to complete the authentication. Once the `GOOGLE_REFRESH_TOKEN` is displayed, you can set it as an environment variable for non-interactive use.
 
 ## 🛠️ Usage
 
